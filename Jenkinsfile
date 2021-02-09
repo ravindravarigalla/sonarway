@@ -45,7 +45,7 @@ spec:
   stages {
     stage('soanr') {
       steps {
-        container('maven') {
+        container('soanr') {
           sh """
             sonar-scanner \
               -Dsonar.projectKey=frontend \
