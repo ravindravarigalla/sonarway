@@ -50,8 +50,8 @@ spec:
             sonar-scanner \
               -Dsonar.projectKey=frontend \
               -Dsonar.sources=. \
-              -Dsonar.host.url=http://35.225.86.244:9000 \
-              -Dsonar.login=dac4f5ae8689d8b5c031c3626a24de76df032658
+              -Dsonar.host.url=http://34.123.57.82:9000 \
+              -Dsonar.login=e71e24b67dcaf00d6592128813831449f23b2c9e
           """
         }
       }
