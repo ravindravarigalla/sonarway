@@ -56,7 +56,7 @@ spec:
         }
       }
     }
-    stage('Quality gate ') {
+    stage('Qualitygate ') {
       steps {
         container('soanr') {
           sh """
@@ -66,31 +66,6 @@ spec:
         }
       }
     }
-    stage('Build and push image with Container Builder') {
-      steps {
-        container('gcloud') {
-          sh "gcloud auth list" 
-          sh "PYTHONUNBUFFERED=1 gcloud builds submit -t gcr.io/dazzling-scheme-281712/node ."
-        }
-      }
-    }
-    stage('Deploy ') {
-      steps {
-        container('helm') {
-          sh """
-          #helm ls
-          gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project dazzling-scheme-281712
-          kubectl get pods --namespace default
-          kubectl create deployment nodejs --image gcr.io/dazzling-scheme-281712/node 
-          kubectl expose deployment nodejs --type LoadBalancer --port 8080
-          helm repo add stable https://kubernetes-charts.storage.googleapis.com/ 
-          helm repo update  
-          helm install sampleapp sampleapp/ --namespace default
-          helm ls
-          kubectl get pods --namespace default
-          """ 
-        }
-      }
     }
   }
 }
