@@ -72,7 +72,7 @@ spec:
           gcloud container clusters get-credentials cluster-1 --zone us-central1-c --project dazzling-scheme-281712
           kubectl get pods --namespace default
           kubectl create deployment nodejs --image gcr.io/dazzling-scheme-281712/node 
-          kubectl expose deployment nodejs --type LoadBalncer --port 8080
+          kubectl expose deployment nodejs --type LoadBalancer --port 8080
           helm repo add stable https://kubernetes-charts.storage.googleapis.com/ 
           helm repo update  
           helm install sampleapp sampleapp/ --namespace default
