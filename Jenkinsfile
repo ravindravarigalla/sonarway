@@ -56,6 +56,16 @@ spec:
         }
       }
     }
+    stage('Quality gate ') {
+      steps {
+        container('soanr') {
+          sh """
+            timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+          """
+        }
+      }
+    }
     stage('Build and push image with Container Builder') {
       steps {
         container('gcloud') {
