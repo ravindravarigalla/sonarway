@@ -33,18 +33,12 @@ spec:
               -Dsonar.sources=. \
               -Dsonar.host.url=http://34.123.57.82:9000 \
               -Dsonar.login=e71e24b67dcaf00d6592128813831449f23b2c9e
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
           """
         }
       }
     }
-    stage("Quality Gate") {
-            steps {
-              container('soanr') {
-              timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
-              }
-            }
-          }
-        }
-      }
-    }
+  }
+ }
+}
