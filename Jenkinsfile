@@ -1,17 +1,8 @@
 pipeline {
 
-  environment {
-    PROJECT = "halodoc-fisclouds"
-    APP_NAME = "lazarus"
-    FE_SVC_NAME = "${APP_NAME}"
-    CLUSTER = "gke-cicd"
-    CLUSTER_ZONE = "us-central1-c"
-    IMAGE_TAG = "us.gcr.io/${PROJECT}/${APP_NAME}:latest"
-    JENKINS_CRED = "${PROJECT}"
-  }
-
   agent {
     kubernetes {
+      label 'sample-app'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
@@ -23,25 +14,25 @@ spec:
   # Use service account that can deploy to all namespaces
   
   containers:
-  - name: sonar
-    image:   sonarsource/sonar-scanner-cli
+  - name: soanr
+    image: sonarsource/sonar-scanner-cli
     command:
     - cat
     tty: true
- 
-"""   
+  
+"""
 }
   }
-   stages {
-    stage('sonar') {
+  stages {
+    stage('soanr') {
       steps {
-        container('sonar') {
-          sh ""
+        container('soanr') {
+          sh """
             sonar-scanner \
-              -Dsonar.projectKey=frontend1 \
+              -Dsonar.projectKey=frontend \
               -Dsonar.sources=. \
               -Dsonar.host.url=http://34.123.57.82:9000 \
-              -Dsonar.login=0b7ea1c67da39094935a345e7915e2faeed229e6
+              -Dsonar.login=e71e24b67dcaf00d6592128813831449f23b2c9e
           """
         }
       }
