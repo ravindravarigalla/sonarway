@@ -1,15 +1,5 @@
 pipeline {
 
-  environment {
-    PROJECT = "pro1-265115"
-    APP_NAME = "pro1-265115"
-    FE_SVC_NAME = "${APP_NAME}-frontend"
-    CLUSTER = "jenkins"
-    CLUSTER_ZONE = "us-central1-c"
-    IMAGE_TAG = "us.gcr.io/${PROJECT}/${APP_NAME}:latest"
-    JENKINS_CRED = "${PROJECT}"
-  }
-
   agent {
     kubernetes {
       label 'sample-app'
@@ -68,5 +58,4 @@ spec:
        } 
       }
     }
-  }
 }
