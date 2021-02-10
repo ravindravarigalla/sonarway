@@ -1,8 +1,18 @@
 pipeline {
 
+  environment {
+    PROJECT = "halodoc-fisclouds"
+    APP_NAME = "lazarus"
+    FE_SVC_NAME = "${APP_NAME}"
+    CLUSTER = "gke-cicd"
+    CLUSTER_ZONE = "us-central1-c"
+    IMAGE_TAG = "us.gcr.io/${PROJECT}/${APP_NAME}:latest"
+    JENKINS_CRED = "${PROJECT}"
+  }
+
   agent {
     kubernetes {
-      label 'sample-app'
+      label 'maventest'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
@@ -14,25 +24,16 @@ spec:
   # Use service account that can deploy to all namespaces
   
   containers:
-  - name: soanr
-    image: sonarsource/sonar-scanner-cli
+  - name: sonar
+    image:   sonarsource/sonar-scanner-cli
     command:
     - cat
     tty: true
-  - name: gcloud
-    image: gcr.io/google.com/cloudsdktool/cloud-sdk
-    command:
-    - cat
-    tty: true
-  - name: helm
-    image: gcr.io/dazzling-scheme-281712/helm3-test
-    command:
-    - cat
-    tty: true
-"""
+ 
+"""   
 }
   }
-  stages {
+   stages {
     stage('soanr') {
       steps {
         container('soanr') {
@@ -46,16 +47,5 @@ spec:
         }
       }
     }
-    stage('Qualitygate ') {
-      steps {
-        container('soanr') {
-          sh """
-            timeout(time: 1, unit: 'HOURS') {
-                waitForQualityGate abortPipeline: true
-          """
-           }
-         }
-       } 
-      }
-    }
-}
+   }
+ }
