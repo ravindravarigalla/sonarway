@@ -12,7 +12,6 @@ pipeline {
 
   agent {
     kubernetes {
-      label 'maventest'
       defaultContainer 'jnlp'
       yaml """
 apiVersion: v1
@@ -34,10 +33,10 @@ spec:
 }
   }
    stages {
-    stage('soanr') {
+    stage('sonar') {
       steps {
-        container('soanr') {
-          sh """
+        container('sonar') {
+          sh ""
             sonar-scanner \
               -Dsonar.projectKey=frontend \
               -Dsonar.sources=. \
