@@ -39,6 +39,7 @@ spec:
     }
     stage("Quality Gate") {
             steps {
+              container('soanr') {
               timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
               }
@@ -46,3 +47,4 @@ spec:
           }
         }
       }
+    }
