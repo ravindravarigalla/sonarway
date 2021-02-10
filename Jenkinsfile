@@ -38,10 +38,10 @@ spec:
         container('sonar') {
           sh ""
             sonar-scanner \
-              -Dsonar.projectKey=frontend \
+              -Dsonar.projectKey=frontend1 \
               -Dsonar.sources=. \
               -Dsonar.host.url=http://34.123.57.82:9000 \
-              -Dsonar.login=e71e24b67dcaf00d6592128813831449f23b2c9e
+              -Dsonar.login=0b7ea1c67da39094935a345e7915e2faeed229e6
           """
         }
       }
